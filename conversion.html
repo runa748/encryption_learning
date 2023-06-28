@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang=jp dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>文字コードで勉強する「暗号化・復号」体験サイト</title>
+        <link rel="stylesheet" href="./css/conversion.css">
+    </head>  
+    <body>
+        <header>
+            <h3 class="center">文字コードで勉強する「暗号化・復号」体験サイト</h3>
+            
+        </header>
+        <div>
+            <br><br>
+            簡単に暗号化・復号を体験できるサイトです<br>
+            <br>
+            適当な文字列を入力してください<br>
+            (入力例) 今日は晴れです。
+            <form name="form1" id="id_form1" action="">
+                <input type="text" id="gettext" style="width: 500px;" placeholder="36字以上の文字はカットされます" maxlength="35"><br>
+                <input class="buttonClass" type="button" value="負の数で暗号化" onclick="sub();"  id="sendSub" />
+                <input class="buttonClass" type="button" value="リセット" onclick="clearText();"/><br>
+                <br>
+                <textarea id="outtext" readonly></textarea><br>
+            </form>
+        </div>
+
+        <footer>
+            <p>© 2021 All rights reserved by ocs_204081.</p>
+        </footer>
+        <script type="text/javascript" src="./js/conversion.js"></script>
+    </body>
+</html>
