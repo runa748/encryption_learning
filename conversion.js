@@ -1,26 +1,31 @@
-
-let str;// 配列の中身を文字列化したもの
-let ram;
-let flg;/*
-0 「平文」を文字コード化すると、「文字コード」になったね
-1 「乱数【n】(共通鍵)」を各文字コードに足すと、「足し算した結果」になって暗号文の完成！
-2 これを文字に戻そうとすると、「元の文字とはちがうなにか」になって、なにを送ったのか分からなくなったね！
-  正しく復号するには「足し算した結果」と「乱数【n】(共通鍵)」が必要だよ
-3 「足し算した結果」と「乱数【n】(共通鍵)」を引くと「文字コード」になったね
-4 各文字コードを文字に戻すと「最初に入力した文字列」になるよ！
-*/
-let outtext;//outtextエリアに表示する文字列
-let value;
-let result;
+//テキストを変化させたいボタン
 const btn = document.getElementById("btn_encode");
+// 配列の中身を文字列化したもの
+let str;
+//共通鍵（乱数）
+let ram;
+let flg;
+/*
+0 文字コード化
+1 暗号化
+2 復号？と正しく暗号化するには
+3 正しい文字コードに戻す・復号
+4 文字化
+*/
+//outtextエリアに表示する文字列
+let outtext;
+//最初に取得した文字列（平文）
+let value;
+//結果
+let result;
 
 
 
-// 文字が入力されてない時は両暗号化ボタンを非活性化
+// 文字が入力されてない時はテキストが変化するボタンを非活性化
 let sendSub = document.querySelector("#btn_encode");
 sendSub.disabled = true;
 
-// 文字が入力されたら暗号化ボタンを活性化する。
+// 文字が入力されたらテキストが変化するボタンを活性化する。
 // "input"が"change"なら入力が完了してフォーカスが外れたときに入る
 gettext.addEventListener("input",function(){
     flg = 0;
@@ -66,24 +71,38 @@ function conversion(){
             result[i] = result[i] + ram;
             str = result.join(' ');
         }
-        outtext += "乱数（共通鍵）「 " + ram + " 」を各文字コードに足すと、「 " + str + " 」になります\n";
+        outtext += "乱数（共通鍵）「 " + ram + " 」を各文字コードに足すと、「 " + str + " 」になります。\nこれが暗号文です。\n\n";
         document.getElementById("outtext").value = outtext;
         flg = 2;
         btn.value = "復号？";
     }else if(flg == 2){
-        let false_character;
+        let false_character = new Array(result.length);
         let false_document;
         for(i = 0;i<result.length;i++){
             false_character[i] = String.fromCharCode(result[i]);
-            false_document = result.join('');
+            false_document = false_character.join('');
         }
-        outtext += "これを文字に戻そうとすると、「 " + false_document + " 」になり、なにを送ったのか分からなくなりました。\n正しく復号するには暗号文「 " + str + " 」と乱数（共通鍵）「 " + ram + " 」が必要です";
+        outtext += "これを文字に戻そうとすると、「 " + false_document + " 」になり、なにを送ったのか分からなくなりました。\n正しく復号するには暗号文「 " + str + " 」と乱数（共通鍵）「 " + ram + " 」が必要です\n\n";
+        document.getElementById("outtext").value = outtext
         flg = 3;
         btn.value = "復号";
     }else if(flg == 3){
+        let cipher = str;
+        for(i = 0;i<result.length;i++){
+            result[i] = result[i] - ram;
+            str = result.join(' ');
+        }
+        outtext += "暗号文「 " + cipher + " 」から乱数【n】(共通鍵)「 " + ram + " 」を引くと「 " + str + " 」になりました。\n最後にこれを文字に戻します。\n\n";
+        document.getElementById("outtext").value = outtext
         flg = 4;
         btn.value = "文字化";
     }else if(flg == 4){
+        for(i = 0;i<result.length;i++){
+            result[i] = String.fromCharCode(result[i]);
+            str = result.join('');
+        }
+        outtext += "各文字コードを文字に戻すと「 " + str + " 」になりました。これで復号の完了です。\n"
+        document.getElementById("outtext").value = outtext
         sendSub.disabled = true;
     }else{
         value = document.getElementById("gettext").value;
@@ -94,7 +113,7 @@ function conversion(){
             str = result.join(' ');
         }
         flg = 1;
-        outtext += "「 " + value + " 」を文字コード化すると「 " + str + " 」になります\n";
+        outtext += "「 " + value + " 」を文字コード化すると「 " + str + " 」になります\n\n";
         document.getElementById("outtext").value = outtext
         btn.value = "暗号化";
     }
