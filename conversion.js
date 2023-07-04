@@ -93,7 +93,7 @@ function conversion(){
             str = result.join(' ');
         }
         outtext += "暗号文「 " + cipher + " 」から乱数【n】(共通鍵)「 " + ram + " 」を引くと「 " + str + " 」になりました。\n最後にこれを文字に戻します。\n\n";
-        document.getElementById("outtext").value = outtext
+        document.getElementById("outtext").value = outtext;
         flg = 4;
         btn.value = "文字化";
     }else if(flg == 4){
@@ -101,8 +101,8 @@ function conversion(){
             result[i] = String.fromCharCode(result[i]);
             str = result.join('');
         }
-        outtext += "各文字コードを文字に戻すと「 " + str + " 」になりました。これで復号の完了です。\n"
-        document.getElementById("outtext").value = outtext
+        outtext += "各文字コードを文字に戻すと「 " + str + " 」になりました。これで復号の完了です。\n";
+        document.getElementById("outtext").value = outtext;
         sendSub.disabled = true;
     }else{
         value = document.getElementById("gettext").value;
@@ -114,7 +114,7 @@ function conversion(){
         }
         flg = 1;
         outtext += "「 " + value + " 」を文字コード化すると「 " + str + " 」になります\n\n";
-        document.getElementById("outtext").value = outtext
+        document.getElementById("outtext").value = outtext;
         btn.value = "暗号化";
     }
 }
