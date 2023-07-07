@@ -1,9 +1,18 @@
+//一つのボタンで動作させるものなのでグローバル変数が多くなっている。美しくはない。
 //テキストを変化させたいボタン
 const btn = document.getElementById("btn_encode");
+
 // 配列の中身を文字列化したもの
 let str;
 //共通鍵（乱数）
 let ram;
+//outtextエリアに表示する文字列
+let outtext;
+//最初に取得した文字列（平文）
+let value;
+//結果
+let result;
+
 let flg;
 /*
 0 文字コード化
@@ -12,33 +21,28 @@ let flg;
 3 正しい文字コードに戻す・復号
 4 文字化
 */
-//outtextエリアに表示する文字列
-let outtext;
-//最初に取得した文字列（平文）
-let value;
-//結果
-let result;
-
 
 
 // 文字が入力されてない時はテキストが変化するボタンを非活性化
 let sendSub = document.querySelector("#btn_encode");
 sendSub.disabled = true;
 
-// 文字が入力されたらテキストが変化するボタンを活性化する。
-// "input"が"change"なら入力が完了してフォーカスが外れたときに入る
+// gettxetエリアに文字が入力されたら実行される
 gettext.addEventListener("input",function(){
+    //リセット
     flg = 0;
     btn.value = "文字コード化";
     outtext = "";
+    var textForm = document.getElementById("outtext");
+    textForm.value = '';
+
+    //テキストが変化するボタンを活性化する。
     sendSub.disabled = false;
     // テキストエリア内の文字が0になったのなら
     if(this.value.length == 0){
+        //テキストが変化するボタンを非活性化する。
         sendSub.disabled = true;
     }
-    // リセットなしでgettext内を編集されたらouttextの値をリセット
-    var textForm = document.getElementById("outtext");
-    textForm.value = '';
 });
 
 // エンターキーを無効にする
@@ -48,16 +52,18 @@ document.onkeydown = function(e) {
     }
 }
 
-// テキストエリア全ての値をリセット
+
 function clearText() {
+    //リセット
     flg = 0;
     outtext = "";
     btn.value = "文字コード化";
+    // テキストエリア全ての値をリセット
     var textForm = document.getElementById("gettext");
     textForm.value = '';
     var textForm = document.getElementById("outtext");
     textForm.value = '';
-    // 再度暗号化ボタンを非活性化
+    // テキストが変化するボタンを非活性化
     sendSub.disabled = true;
 }
 
