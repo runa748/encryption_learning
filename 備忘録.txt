@@ -1,3 +1,7 @@
 idとonclickは同一名にすると動かなくなる
 
 let 変数名;をしたあとにfor文で変数名[i]とすると動かない。配列として宣言しないといけない
+
+ページ遷移がないからlocalstorage
+
+保持するのはgettext,outtext,flg,result,str,btn.value,ram？
